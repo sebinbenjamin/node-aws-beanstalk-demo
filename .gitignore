@@ -1,0 +1,44 @@
+# AWS and Elastic Beanstalk config files
+.aws/credentials
+.aws/config
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore test files and directories
+test/
+spec/
+*.spec.js
+*.test.js
+
+# Ignore build directories
+dist/
+build/
+coverage/
+
+# Ignore IDE and editor config files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
+
+# Ignore temporary files and directories
+tmp/
+temp/

@@ -1,0 +1,9 @@
+branch-defaults:
+  default:
+    environment: ec2-node-env
+global:
+  application_name: ec2-node-env
+  default_ec2_keyname: my-key
+  default_platform: Node.js 20 running on 64bit Amazon Linux 2023
+  profile: your_profile_name
+  region: ap-southeast-2

@@ -1,0 +1,40 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# AWS and Elastic Beanstalk config files
+.aws/
+.elasticbeanstalk/
+
+# Ignore test files and directories
+test/
+spec/
+*.spec.js
+*.test.js
+
+# Ignore Git and version control files
+.git/
+.gitignore
+
+# Ignore build directories
+dist/
+build/
+coverage/
+
+# Ignore IDE and editor config files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
