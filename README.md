@@ -2,6 +2,17 @@
 
 This repository contains a simple Node.js application that demonstrates how to deploy to AWS Elastic Beanstalk, which in turn deploys the application on an EC2 instance.
 
+## Table of Contents
+- [Prerequisites](#prerequisites)
+  - [1. AWS Account](#1-aws-account)
+  - [2. AWS CLI](#2-aws-cli)
+  - [3. Elastic Beanstalk CLI](#3-elastic-beanstalk-cli)
+- [Setup](#setup)
+- [Deployment](#deployment)
+- [Application](#application)
+  - [How It Works](#how-it-works)
+  - [CI using GitHub Action](#ci-using-github-action)
+
 ## Prerequisites
 ### 1. AWS Account
 You need an AWS account. Sign up at [AWS official website](https://aws.amazon.com/).
@@ -114,6 +125,21 @@ When you deploy an application using Elastic Beanstalk, AWS automatically handle
 
 By using Elastic Beanstalk, you can focus on writing code and not worry about the underlying infrastructure, while still having full control over the AWS resources powering your application.
 
-## License
+### CI using GitHub Action
 
-This project is licensed under the MIT License.
+You can deploy your Node.js application to AWS Elastic Beanstalk using GitHub Actions. This allows you to automate the deployment process as part of your CI/CD pipeline. The following are the steps to do the same
+
+#### Create an IAM User for Deployment.
+1. Refer to [AWS CLI](#2-aws-cli) config.
+2. Attach the policies `AWSElasticBeanstalkFullAccess` and `AmazonS3FullAccess` to the IAM user.
+3. Generate and save the `access key` and `secret key` for this IAM user.
+
+#### Add GitHub Secrets
+1. In your GitHub repository, go to `Settings > Secrets and variables > Actions`, add the following secrets
+2. ```
+    AWS_ACCESS_KEY_ID: your_access_key_id
+    AWS_SECRET_ACCESS_KEY: your_secret_access_key
+    AWS_REGION: ap-southeast-2
+    EB_ENVIRONMENT_NAME: ec2-node-env
+    EB_APPLICATION_NAME: eb-node-ec2
+   ```
