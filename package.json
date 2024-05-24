@@ -4,7 +4,9 @@
   "description": "A simple Node.js application that demonstrates how to deploy an application on an EC2 instance using AWS Elastic Beanstalk.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build step required\"",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",

@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build the project
-        run: npm run build # Adjust according to your build script
-
       - name: Archive the project
         run: zip -r my-app.zip . -x '*.git*'
 
@@ -37,4 +34,4 @@ jobs:
           pip install awsebcli
           eb init -p node.js ${{ secrets.EB_APPLICATION_NAME }} --region ${{ secrets.AWS_REGION }}
           eb use ${{ secrets.EB_ENVIRONMENT_NAME }}
-          eb deploy --staged
+          eb deploy --staged --label github-actions-deploy

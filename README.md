@@ -3,6 +3,7 @@
 This repository contains a simple Node.js application that demonstrates how to deploy to AWS Elastic Beanstalk, which in turn deploys the application on an EC2 instance.
 
 ## Table of Contents
+
 - [Prerequisites](#prerequisites)
   - [1. AWS Account](#1-aws-account)
   - [2. AWS CLI](#2-aws-cli)
@@ -14,18 +15,23 @@ This repository contains a simple Node.js application that demonstrates how to d
   - [CI using GitHub Action](#ci-using-github-action)
 
 ## Prerequisites
+
 ### 1. AWS Account
+
 You need an AWS account. Sign up at [AWS official website](https://aws.amazon.com/).
 
 ### 2. AWS CLI
 
 1. Setup your IAM user by following the instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
 2. Add necessary permissions for the IAM user. Follow the instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#add-policies-console). The following would be some of the permissions required.
-  ```
-    arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess
-    arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
-  ```
-3. Install and configure the AWS CLI. Instructions can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html). Run the command to configure the CLI 
+
+```
+  arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess
+  arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
+```
+
+3. Install and configure the AWS CLI. Instructions can be found [here](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html). Run the command to configure the CLI
+
 ```sh
   $ aws configure --profile your_profile_name
     AWS Access Key ID [None]: your_access_key_id
@@ -33,11 +39,14 @@ You need an AWS account. Sign up at [AWS official website](https://aws.amazon.co
     Default region name [None]: ap-southeast-2
     Default output format [None]: json
 ```
-  - To use the named profile with the AWS CLI, specify the profile using the `--profile` option in your commands
+
+- To use the named profile with the AWS CLI, specify the profile using the `--profile` option in your commands
 
 ### 3. Elastic Beanstalk CLI
+
 1. Install the EB CLI. Instructions can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html). Go through the troubleshooting guide on their repo if you face any errors.
-2. Configure the Elastic Beanstalk  CLI. Instructions can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-configuration.html).  Run the command to configure the CLI 
+2. Configure the Elastic Beanstalk CLI. Instructions can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-configuration.html). Run the command to configure the CLI
+
 ```sh
  $ eb init --profile your_profile_name
     Select a default region
@@ -48,7 +57,7 @@ You need an AWS account. Sign up at [AWS official website](https://aws.amazon.co
     5) eu-central-1 : Europe (Frankfurt)
     6) ap-south-1 : Asia Pacific (Mumbai)
     7) ap-southeast-1 : Asia Pacific (Singapore)
-    8) ... 
+    8) ...
     (default is 3): x
 
     You have not yet set up your credentials or your credentials are incorrect.
@@ -79,36 +88,41 @@ You need an AWS account. Sign up at [AWS official website](https://aws.amazon.co
 ## Setup
 
 1. Clone the repository:
-    ```bash
-    git clone https://github.com/sebinbenjamin/node-aws-beanstalk-demo.git
-    cd node-beanstalk-demo
-    ```
+
+   ```bash
+   git clone https://github.com/sebinbenjamin/node-aws-beanstalk-demo.git
+   cd node-beanstalk-demo
+   ```
 
 2. Install dependencies:
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 ## Deployment
 
 1. Initialize Elastic Beanstalk in your project directory:
-    ```bash
-    eb init --profile your_profile_name
-    ```
-    Follow the prompts to configure your Elastic Beanstalk application. You will need to select your AWS region and provide your access credentials.
+
+   ```bash
+   eb init --profile your_profile_name
+   ```
+
+   Follow the prompts to configure your Elastic Beanstalk application. You will need to select your AWS region and provide your access credentials.
 
 2. Create an Elastic Beanstalk environment and deploy your application:
-    ```bash
-    eb create ec2-node-env --single --profile your_profile_name
-    eb deploy --profile your_profile_name
-    eb status --profile your_profile_name # use to monitor the app
-    eb open --profile your_profile_name # use to open the app
-    eb logs --profile your_profile_name # to view the logs
-    ```
-3. You can set any environment variables using 
+   ```bash
+   eb create ec2-node-env --single --profile your_profile_name
+   eb deploy --profile your_profile_name
+   eb status --profile your_profile_name # use to monitor the app
+   eb open --profile your_profile_name # use to open the app
+   eb logs --profile your_profile_name # to view the logs
+   ```
+3. You can set any environment variables using
+
 ```sh
     eb --profile your_profile_name setenv KEY=value
 ```
+
 4. You can also setup environment variables in `.ebextensions\environment.config`.
 
 ## Application
@@ -130,16 +144,19 @@ By using Elastic Beanstalk, you can focus on writing code and not worry about th
 You can deploy your Node.js application to AWS Elastic Beanstalk using GitHub Actions. This allows you to automate the deployment process as part of your CI/CD pipeline. The following are the steps to do the same
 
 #### Create an IAM User for Deployment.
+
 1. Refer to [AWS CLI](#2-aws-cli) config.
 2. Attach the policies `AWSElasticBeanstalkFullAccess` and `AmazonS3FullAccess` to the IAM user.
 3. Generate and save the `access key` and `secret key` for this IAM user.
 
 #### Add GitHub Secrets
-1. In your GitHub repository, go to `Settings > Secrets and variables > Actions`, add the following secrets
-2. ```
-    AWS_ACCESS_KEY_ID: your_access_key_id
-    AWS_SECRET_ACCESS_KEY: your_secret_access_key
-    AWS_REGION: ap-southeast-2
-    EB_ENVIRONMENT_NAME: ec2-node-env
-    EB_APPLICATION_NAME: eb-node-ec2
-   ```
+
+1. In your GitHub repository, go to `Settings > Secrets and variables > Actions`, make sure you add the following secrets
+
+```
+   AWS_ACCESS_KEY_ID: your_access_key_id
+   AWS_SECRET_ACCESS_KEY: your_secret_access_key
+   AWS_REGION: ap-southeast-2
+   EB_ENVIRONMENT_NAME: ec2-node-env
+   EB_APPLICATION_NAME: eb-node-ec2
+```
