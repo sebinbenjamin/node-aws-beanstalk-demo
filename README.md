@@ -21,12 +21,12 @@ This repository contains a simple Node.js application that demonstrates how to d
 You need an AWS account. Sign up at [AWS official website](https://aws.amazon.com/).
 
 ### 2. AWS CLI
-
+1. Install the [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html). 
 1. Setup your IAM user by following the instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html#id_users_create_console)
 2. Add necessary permissions for the IAM user. Follow the instructions [here](https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-attach-detach.html#add-policies-console). The following would be some of the permissions required.
 
 ```
-  arn:aws:iam::aws:policy/AWSElasticBeanstalkFullAccess
+  arn:aws:iam::aws:policy/AdministratorAccess-AWSElasticBeanstalk
   arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkService
 ```
 
@@ -44,7 +44,7 @@ You need an AWS account. Sign up at [AWS official website](https://aws.amazon.co
 
 ### 3. Elastic Beanstalk CLI
 
-1. Install the EB CLI. Instructions can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html). Go through the troubleshooting guide on their repo if you face any errors.
+1. Install the EB CLI. Instructions can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html). You will need to also have  Go through the troubleshooting guide on their repo if you face any errors.
 2. Configure the Elastic Beanstalk CLI. Instructions can be found [here](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-configuration.html). Run the command to configure the CLI
 
 ```sh
@@ -104,14 +104,24 @@ You need an AWS account. Sign up at [AWS official website](https://aws.amazon.co
 1. Initialize Elastic Beanstalk in your project directory:
 
    ```bash
-   eb init --profile your_profile_name
+   eb init --profile aws-demo-user
+
+   Select a default region
+   1) us-east-1 : US East (N. Virginia)
+   2) us-west-1 : US West (N. California)
+   3) us-west-2 : US West (Oregon)
+   4) eu-west-1 : EU (Ireland)
+   5) eu-central-1 : EU (Frankfurt)
+   6) ap-south-1 : Asia Pacific (Mumbai)
+   7) ap-southeast-1 : Asia Pacific (Singapore)
+   8) ap-southeast-2 : Asia Pacific (Sydney)
    ```
 
    Follow the prompts to configure your Elastic Beanstalk application. You will need to select your AWS region and provide your access credentials.
 
 2. Create an Elastic Beanstalk environment and deploy your application:
    ```bash
-   eb create ec2-node-env --single --profile your_profile_name
+   eb create ec2-node-env --single --profile your_aws_profile_name
    eb deploy --profile your_profile_name
    eb status --profile your_profile_name # use to monitor the app
    eb open --profile your_profile_name # use to open the app

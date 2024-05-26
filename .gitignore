@@ -42,3 +42,8 @@ yarn.lock
 # Ignore temporary files and directories
 tmp/
 temp/
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
