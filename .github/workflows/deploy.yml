@@ -32,6 +32,12 @@ jobs:
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
           pip install awsebcli
-          eb init -p node.js ${{ secrets.EB_APPLICATION_NAME }} --region ${{ secrets.AWS_REGION }}
-          eb use ${{ secrets.EB_ENVIRONMENT_NAME }}
+          eb init -p node.js -r ${{ secrets.AWS_REGION }} ${{ secrets.EB_APPLICATION_NAME }}
+          if eb list | grep -q "${{ secrets.EB_ENVIRONMENT_NAME }}"; then
+            echo "Environment exists, using it."
+            eb use ${{ secrets.EB_ENVIRONMENT_NAME }}
+          else
+            echo "Environment does not exist, creating a new one."
+            eb create ${{ secrets.EB_ENVIRONMENT_NAME }} --single --instance_type t4g.nano
+          fi
           eb deploy --staged --label github-actions-deploy
