@@ -13,6 +13,7 @@ This repository contains a simple Node.js application that demonstrates how to d
 - [Application](#application)
   - [How It Works](#how-it-works)
   - [CI using GitHub Action](#ci-using-github-action)
+  - [Database Setup](#database-setup)
 
 ## Prerequisites
 
@@ -145,7 +146,7 @@ When you deploy an application using Elastic Beanstalk, AWS automatically handle
 
 1. **Environment Creation**: Elastic Beanstalk creates an environment, which includes one or more EC2 instances to host your application.
 2. **Application Deployment**: The application is deployed to the EC2 instances in the environment.
-3. **Load Balancing and Auto Scaling**: Elastic Beanstalk automatically sets up load balancing and auto-scaling to ensure your application can handle varying amounts of traffic.
+3. **Load Balancing and Auto Scaling**: Elastic Beanstalk automatically sets up load balancing and auto-scaling to ensure your application can handle varying amounts of traffic. In this particular example, we are just setting up a single instance.
 
 By using Elastic Beanstalk, you can focus on writing code and not worry about the underlying infrastructure, while still having full control over the AWS resources powering your application.
 
@@ -170,3 +171,14 @@ You can deploy your Node.js application to AWS Elastic Beanstalk using GitHub Ac
    EB_ENVIRONMENT_NAME: ec2-node-env
    EB_APPLICATION_NAME: eb-node-ec2
 ```
+
+#### Database Setup
+
+This project also includes the setup of an RDS MySQL database instance as part of the Elastic Beanstalk environment. The database setup is automated using CloudFormation templates specified in `.ebextensions` directory.
+
+`.ebextensions/network.config` - sets up the VPC, subnet, and security groups required for the environment.
+`.ebextensions/rds.config` - sets up the RDS MySQL database instance.
+
+**Using the Database in Your Application**
+
+The JDBC connection string for the database will be set as an environment variable `DATABASE_URL` in your Elastic Beanstalk environment. This file is used to configure it `.ebextensions\environment.config`. You can access this environment variable in your Node.js application to connect to the database.
