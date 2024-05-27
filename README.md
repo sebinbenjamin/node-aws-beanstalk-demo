@@ -122,19 +122,28 @@ You need an AWS account. Sign up at [AWS official website](https://aws.amazon.co
 
 2. Create an Elastic Beanstalk environment and deploy your application:
    ```bash
-   eb create ec2-node-env --single --profile your_aws_profile_name
+   eb create --profile your_aws_profile_name
+   ```
+3. Create subnets using the AWS CLI
+   ```bash
+   aws ec2 create-subnet --vpc-id vpc-1-demo-fs-node --cidr-block 10.0.1.0/24 --region ap-southeast-2
+   aws ec2 create-subnet --vpc-id vpc-1-demo-fs-node --cidr-block 10.0.2.0/24 --region ap-southeast-2
+   ```
+
+4. Deploy the application after updating `.ebextensions/rds.config` with the subnets created.
+   ```bash 
    eb deploy --profile your_profile_name
    eb status --profile your_profile_name # use to monitor the app
    eb open --profile your_profile_name # use to open the app
    eb logs --profile your_profile_name # to view the logs
    ```
-3. You can set any environment variables using
+5. You can set any environment variables using
 
 ```sh
     eb --profile your_profile_name setenv KEY=value
 ```
 
-4. You can also setup environment variables in `.ebextensions\environment.config`.
+6. You can also setup environment variables in `.ebextensions\environment.config` like in this sample project.
 
 ## Application
 
